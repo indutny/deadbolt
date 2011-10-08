@@ -22,7 +22,7 @@ deadbolt.lock('some-action-id', function(err, lock) {
     });
   });
 }).report(function(err) {
-  console.error('Execution stopped somewhere inside lock);
+  console.error('Execution stopped somewhere inside lock');
   console.error('Released lock automatically');
   console.error('Reason: ' + err);
 });
