@@ -1,3 +1,9 @@
+/*!
+ * Deadbolt
+ * Copyright(c) 2011 Fedor Indutny <fedor@indutny.com>
+ * MIT Licensed
+ */
+
 #include "weak.h"
 #include <node.h>
 #include <v8.h>

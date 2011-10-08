@@ -1,3 +1,9 @@
+/*!
+ * Deadbolt
+ * Copyright(c) 2011 Fedor Indutny <fedor@indutny.com>
+ * MIT Licensed
+ */
+
 #ifndef _SRC_NODE_WEAK_H_
 #define _SRC_NODE_WEAK_H_
 
