@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "weak": "0.1.x"
+    "weak-tmp": "0.0.2"
   },
   "devDependencies": {
     "vows": "0.5.x"
