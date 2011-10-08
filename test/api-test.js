@@ -25,13 +25,13 @@ vows.describe('deadbolt/api').addBatch({
       d.lock('a', this.callback);
     },
     'should return object': {
-      'with .unlock method': function(err, o) {
+      'with .release method': function(err, o) {
         assert.isNull(err);
-        assert.include(o, 'unlock');
+        assert.include(o, 'release');
       },
-      'and if calling it\'s .unlock(callback) method': {
+      'and if calling it\'s .release(callback) method': {
         topic: function(o) {
-          o.unlock(this.callback);
+          o.release(this.callback);
         },
         'should call callback': function(err, data) {
           assert.isNull(err);
@@ -53,9 +53,9 @@ vows.describe('deadbolt/api').addBatch({
       d.lock('b', this.callback);
     },
     'should return object': {
-      'with .unlock method': function(err, o) {
+      'with .release method': function(err, o) {
         assert.isNull(err);
-        assert.include(o, 'unlock');
+        assert.include(o, 'release');
       },
       'and calling d.lock(id, callback) twice': {
         topic: function() {

@@ -17,7 +17,7 @@ deadbolt.lock('some-action-id', function(err, lock) {
   if (err) console.error(err); // 'some-action-id' is already running somewhere
 
   doAsyncActionThatProbablyThrows(function() {
-    lock.unlock(function(err) {
+    lock.release(function(err) {
       // Released lock if err === null
     });
   });
