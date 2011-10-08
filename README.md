@@ -2,7 +2,31 @@
 
 ## Description
 
-Coming soon...
+Having locks in async world is not so straight-forward as it may look like.
+Everything can work fine, but when exception will be thrown in your app - locks
+may stay active until script's termination.
+
+Here comes deadbolt to save all us:
+
+## Example
+
+```javascript
+var deadbolt = require('deadbolt').create();
+
+deadbolt.lock('some-action-id', function(err, lock) {
+  if (err) console.error(err);
+
+  doAsyncActionThatProbablyThrows(function() {
+    lock.unlock(function(err) {
+      // ...
+    });
+  });
+}).report(function(err) {
+  console.error('Execution stopped somewhere inside lock);
+  console.error('Released lock automatically');
+  console.error('Reason: ' + err);
+});
+```
 
 ### LICENSE
 
