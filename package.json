@@ -1,0 +1,14 @@
+{
+  "name": "deadbolt",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "weak": "0.1.x"
+  },
+  "devDependencies": {
+    "vows": "0.5.x"
+  },
+  "scripts": {
+    "test": "vows --spec test/*-test.js"
+  }
+}
