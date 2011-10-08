@@ -7,7 +7,7 @@ var d;
 
 function gc() {
   return setInterval(function () {
-    var x = new Array(100000).join('x');
+    var x = new Array(1000000).join('x');
   }, 1000);
 };
 

@@ -2,12 +2,12 @@
   "name": "deadbolt",
   "version": "0.0.2",
   "dependencies": {
-    "weak-tmp": "0.0.2"
   },
   "devDependencies": {
     "vows": "0.5.x"
   },
   "scripts": {
+    "install": "./configure && make",
     "test": "vows --spec test/*-test.js"
   }
 }
