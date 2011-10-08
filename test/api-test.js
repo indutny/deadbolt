@@ -5,10 +5,10 @@ var deadbolt = require('../lib/deadbolt');
 
 var d;
 
-function gc() {
-  return setInterval(function () {
-    var x = new Array(1000000).join('x');
-  }, 1000);
+function doGc() {
+  process.nextTick(gc);
+
+  return setInterval(function () {}, 60000);
 };
 
 vows.describe('deadbolt/api').addBatch({
@@ -74,7 +74,7 @@ vows.describe('deadbolt/api').addBatch({
       d.lock('c', function() {}).report(function(err) {
         callback(null, err);
       });
-      this.int = gc();
+      this.int = doGc();
     },
     'should emit reporter callback with error': function(err) {
       clearInterval(this.int);

@@ -9,6 +9,6 @@
   },
   "scripts": {
     "install": "./configure && make",
-    "test": "vows --spec test/*-test.js"
+    "test": "node --expose-gc `which vows` --spec test/*-test.js"
   }
 }
