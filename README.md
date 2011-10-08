@@ -14,11 +14,11 @@ Here comes deadbolt to save all us:
 var deadbolt = require('deadbolt').create();
 
 deadbolt.lock('some-action-id', function(err, lock) {
-  if (err) console.error(err);
+  if (err) console.error(err); // 'some-action-id' is already running somewhere
 
   doAsyncActionThatProbablyThrows(function() {
     lock.unlock(function(err) {
-      // ...
+      // Released lock if err === null
     });
   });
 }).report(function(err) {
