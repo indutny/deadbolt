@@ -36,7 +36,9 @@ It's using [v8](https://github.com/v8/v8) [MakeWeak](http://bespin.cz/~ondras/ht
 black magic. When `lock` becomes weak (not referenced in your program) -
 `autorelease` callback will be called.
 
-### LICENSE
+
+
+#### LICENSE
 
 (The MIT License)
 
