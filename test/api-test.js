@@ -74,7 +74,7 @@ vows.describe('deadbolt/api').addBatch({
       });
       this.int = doGc();
     },
-    'should emit reporter callback with error': function(err) {
+    'should emit autorelease callback with error': function(err) {
       clearInterval(this.int);
       assert.ok(err);
     },
@@ -107,7 +107,7 @@ vows.describe('deadbolt/api').addBatch({
 
       this.int = doGc();
     },
-    'should emit reporter callback with error': function(err) {
+    'should emit autorelease callback with error': function(err) {
       clearInterval(this.int);
       assert.isNull(err);
     },
