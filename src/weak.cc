@@ -21,20 +21,24 @@ void WeakCallback(Persistent<Value> obj, void* arg) {
 
   weak_conf* conf = (weak_conf*) arg;
 
-  Local<Value> argv[0];
-
+  // Safely invoke external callback
   TryCatch c;
+
+  Local<Value> argv[0];
   conf->callback->Call(conf->target, 0, argv);
   if (c.HasCaught()) {
+    // Invoke node's uncaught exceptions listener
     FatalException(c);
   }
 
+  // Remove persistent links to objects
   conf->target.Dispose();
   conf->callback.Dispose();
 
   free(conf);
 }
 
+// Adds javascript listener for MakeWeak's event
 Handle<Value> Weak(const Arguments &args) {
   HandleScope scope;
 
@@ -55,11 +59,12 @@ Handle<Value> Weak(const Arguments &args) {
   return Undefined();
 }
 
+// Export native module's APIs
 void Initialize(Handle<Object> target) {
   NODE_SET_METHOD(target, "weak", node::weak::Weak);
 }
 
-}
-}
+} // weak
+} // node
 
 NODE_MODULE(weak, node::weak::Initialize);
