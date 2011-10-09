@@ -1,7 +1,7 @@
 {
   "name": "deadbolt",
   "description": "Autoreleasing locks for node.js",
-  "tags": "deadbolt locks weak"
+  "tags": "deadbolt locks weak",
   "version": "0.3.1",
 
   "author": "Fedor Indutny <fedor@indutny.com>",
