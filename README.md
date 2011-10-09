@@ -9,7 +9,7 @@ may stay active until script's termination.
 Here comes *deadbolt* to save all us:
 
 ```javascript
-var deadbolt = require('deadbolt').create();
+var deadbolt = require('deadbolt');
 
 deadbolt.lock('some-action-id', function (err, lock) {
 
@@ -28,6 +28,15 @@ deadbolt.lock('some-action-id', function (err, lock) {
   console.error('Reason: ' + err);
 
 });
+```
+
+Or just wrap callbacks without setting lock:
+
+```javascript
+function asyncAction(callback) {
+  callback = deadbolt.wrap(callback);
+  doOtherAsyncActionThatMayForgotToCall(callback);
+};
 ```
 
 ## How does it work?
