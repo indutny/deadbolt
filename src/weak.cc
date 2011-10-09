@@ -22,7 +22,13 @@ void WeakCallback(Persistent<Value> proxy, void* arg) {
   weak_conf* conf = (weak_conf*) arg;
 
   Local<Value> argv[0];
+
+  TryCatch c;
   conf->callback->Call(conf->target, 0, argv);
+  if (c.HasCaught()) {
+    FatalException(c);
+  }
+
   conf->target.Dispose();
   conf->callback.Dispose();
 
