@@ -3,7 +3,7 @@ var vows = require('vows'),
 
 var deadbolt = require('../lib/deadbolt');
 
-var d;
+var d, shared = {};
 
 function doGc() {
   return setInterval(function () { gc(); }, 200);
@@ -74,7 +74,7 @@ vows.describe('deadbolt/api').addBatch({
       });
       this.int = doGc();
     },
-    'should emit autorelease callback with error': function (err) {
+    'should call autorelease callback with error': function (err) {
       clearInterval(this.int);
       assert.ok(err);
     },
@@ -107,7 +107,7 @@ vows.describe('deadbolt/api').addBatch({
 
       this.int = doGc();
     },
-    'should emit autorelease callback with error': function (err) {
+    'should call autorelease callback with error': function (err) {
       clearInterval(this.int);
       assert.isNull(err);
     },
@@ -128,7 +128,7 @@ vows.describe('deadbolt/api').addBatch({
       });
       this.int = doGc();
     },
-    'should emit autorelease callback with error': function (err) {
+    'should call autorelease callback with error': function (err) {
       clearInterval(this.int);
       assert.ok(err);
     }
@@ -154,9 +154,35 @@ vows.describe('deadbolt/api').addBatch({
 
       this.int = doGc();
     },
-    'should emit autorelease callback with error': function (err) {
+    'should call autorelease callback with error': function (err) {
       clearInterval(this.int);
       assert.isNull(err);
+    }
+  }
+}).addBatch({
+  'Calling deadbolt.lock()': {
+    topic: function () {
+      shared.lock = deadbolt.lock();
+      return null;
+    },
+    'should return object': {
+      'with .autorelease() method': function (lock) {
+        assert.include(shared.lock, 'autorelease');
+      },
+      'with .release() method': function (lock) {
+        assert.include(shared.lock, 'release');
+      },
+      'and when calling .autorelease(callback) on it': {
+        topic: function (lock) {
+          shared.lock.autorelease(this.callback);
+          delete shared.lock;
+          this.int = doGc();
+        },
+        'should call autorelease callback': function (err, data) {
+          clearInterval(this.int);
+          assert.ok(err);
+        }
+      }
     }
   }
 }).export(module);
