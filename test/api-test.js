@@ -86,4 +86,37 @@ vows.describe('deadbolt/api').addBatch({
       }
     }
   }
+}).addBatch({
+  'Calling d.lock(id, nop).autorelease(callback)': {
+    topic: function() {
+      var callback = this.callback,
+          autorelease = null;
+
+      d.lock('d', function(err, ref) {
+        if (err) return callback(null, err);
+
+        setTimeout(function () {
+          ref.release(function() {
+            callback(null, autorelease);
+          });
+        }, 1000);
+
+      }).autorelease(function(err) {
+        autorelease = err;
+      });
+
+      this.int = doGc();
+    },
+    'should emit reporter callback with error': function(err) {
+      clearInterval(this.int);
+      assert.isNull(err);
+    },
+    'and creating same lock again': {
+      topic: function () {
+        d.lock('d', this.callback);
+      },
+      'should be without errors': function () {
+      }
+    }
+  }
 }).export(module);
