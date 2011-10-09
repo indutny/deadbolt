@@ -6,9 +6,7 @@ var deadbolt = require('../lib/deadbolt');
 var d;
 
 function doGc() {
-  process.nextTick(gc);
-
-  return setInterval(function () {}, 60000);
+  return setInterval(function () { gc(); }, 200);
 };
 
 vows.describe('deadbolt/api').addBatch({
@@ -68,10 +66,10 @@ vows.describe('deadbolt/api').addBatch({
     }
   }
 }).addBatch({
-  'Calling d.lock(id, nop).report(callback)': {
+  'Calling d.lock(id, nop).autorelease(callback)': {
     topic: function() {
       var callback = this.callback;
-      d.lock('c', function() {}).report(function(err) {
+      d.lock('c', function() {}).autorelease(function(err) {
         callback(null, err);
       });
       this.int = doGc();
