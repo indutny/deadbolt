@@ -6,7 +6,7 @@ Having locks in async world is not so straight-forward as it may look like.
 Everything can work fine, but when exception will be thrown in your app - locks
 may stay active until script's termination.
 
-Here comes deadbolt to save all us:
+Here comes *deadbolt* to save all us:
 
 ```javascript
 var deadbolt = require('deadbolt').create();
@@ -30,6 +30,11 @@ deadbolt.lock('some-action-id', function (err, lock) {
 });
 ```
 
+## How does it work?
+
+It's using [v8](https://github.com/v8/v8) [MakeWeak](http://bespin.cz/~ondras/html/classv8_1_1Persistent.html#ab04609812113450bece2640ad0b27658)
+black magic. When `lock` becomes weak (not referenced in your program) -
+`autorelease` callback will be called.
 
 ### LICENSE
 
