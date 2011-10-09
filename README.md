@@ -8,25 +8,28 @@ may stay active until script's termination.
 
 Here comes deadbolt to save all us:
 
-## Example
-
 ```javascript
 var deadbolt = require('deadbolt').create();
 
-deadbolt.lock('some-action-id', function(err, lock) {
+deadbolt.lock('some-action-id', function (err, lock) {
+
   if (err) console.error(err); // 'some-action-id' is already running somewhere
 
-  doAsyncActionThatProbablyThrows(function() {
-    lock.release(function(err) {
+  doAsyncActionThatProbablyThrows(function () {
+    lock.release(function (err) {
       // Released lock if err === null
     });
   });
-}).autorelease(function(err) {
+
+}).autorelease(function (err) {
+
   console.error('Execution stopped somewhere inside lock');
   console.error('Released lock automatically');
   console.error('Reason: ' + err);
+
 });
 ```
+
 
 ### LICENSE
 

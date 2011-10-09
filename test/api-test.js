@@ -19,23 +19,23 @@ vows.describe('deadbolt/api').addBatch({
   }
 }).addBatch({
   'Calling d.lock(id, callback)': {
-    topic: function() {
+    topic: function () {
       d.lock('a', this.callback);
     },
     'should return object': {
-      'with .release method': function(err, o) {
+      'with .release method': function (err, o) {
         assert.isNull(err);
         assert.include(o, 'release');
       },
       'and if calling it\'s .release(callback) method': {
-        topic: function(o) {
+        topic: function (o) {
           o.release(this.callback);
         },
-        'should call callback': function(err, data) {
+        'should call callback': function (err, data) {
           assert.isNull(err);
         },
         'and finally calling d.lock again': {
-          topic: function() {
+          topic: function () {
             d.lock('a', this.callback);
           },
           'should be successful': function (err, data) {
@@ -47,19 +47,19 @@ vows.describe('deadbolt/api').addBatch({
   }
 }).addBatch({
   'Calling d.lock(id, callback)': {
-    topic: function() {
+    topic: function () {
       d.lock('b', this.callback);
     },
     'should return object': {
-      'with .release method': function(err, o) {
+      'with .release method': function (err, o) {
         assert.isNull(err);
         assert.include(o, 'release');
       },
       'and calling d.lock(id, callback) twice': {
-        topic: function() {
+        topic: function () {
           d.lock('b', this.callback);
         },
-        'should return error': function(err, data) {
+        'should return error': function (err, data) {
           assert.ok(err);
         }
       }
@@ -67,14 +67,14 @@ vows.describe('deadbolt/api').addBatch({
   }
 }).addBatch({
   'Calling d.lock(id, nop).autorelease(callback)': {
-    topic: function() {
+    topic: function () {
       var callback = this.callback;
-      d.lock('c', function() {}).autorelease(function(err) {
+      d.lock('c', function () {}).autorelease(function (err) {
         callback(null, err);
       });
       this.int = doGc();
     },
-    'should emit autorelease callback with error': function(err) {
+    'should emit autorelease callback with error': function (err) {
       clearInterval(this.int);
       assert.ok(err);
     },
@@ -88,26 +88,26 @@ vows.describe('deadbolt/api').addBatch({
   }
 }).addBatch({
   'Calling d.lock(id, nop).autorelease(callback)': {
-    topic: function() {
+    topic: function () {
       var callback = this.callback,
           autorelease = null;
 
-      d.lock('d', function(err, ref) {
+      d.lock('d', function (err, ref) {
         if (err) return callback(null, err);
 
         setTimeout(function () {
-          ref.release(function() {
+          ref.release(function () {
             callback(null, autorelease);
           });
         }, 1000);
 
-      }).autorelease(function(err) {
+      }).autorelease(function (err) {
         autorelease = err;
       });
 
       this.int = doGc();
     },
-    'should emit autorelease callback with error': function(err) {
+    'should emit autorelease callback with error': function (err) {
       clearInterval(this.int);
       assert.isNull(err);
     },
@@ -117,6 +117,46 @@ vows.describe('deadbolt/api').addBatch({
       },
       'should be without errors': function () {
       }
+    }
+  }
+}).addBatch({
+  'Calling d.lock(nop).autorelease(callback)': {
+    topic: function () {
+      var callback = this.callback;
+      d.lock(function () {}).autorelease(function (err) {
+        callback(null, err);
+      });
+      this.int = doGc();
+    },
+    'should emit autorelease callback with error': function (err) {
+      clearInterval(this.int);
+      assert.ok(err);
+    }
+  }
+}).addBatch({
+  'Calling d.lock(nop).autorelease(callback)': {
+    topic: function () {
+      var callback = this.callback,
+          autorelease = null;
+
+      d.lock(function (err, ref) {
+        if (err) return callback(null, err);
+
+        setTimeout(function () {
+          ref.release(function () {
+            callback(null, autorelease);
+          });
+        }, 1000);
+
+      }).autorelease(function (err) {
+        autorelease = err;
+      });
+
+      this.int = doGc();
+    },
+    'should emit autorelease callback with error': function (err) {
+      clearInterval(this.int);
+      assert.isNull(err);
     }
   }
 }).export(module);
