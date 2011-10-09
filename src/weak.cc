@@ -16,7 +16,7 @@ namespace weak {
 
 using namespace v8;
 
-void WeakCallback(Persistent<Value> proxy, void* arg) {
+void WeakCallback(Persistent<Value> obj, void* arg) {
   HandleScope scope;
 
   weak_conf* conf = (weak_conf*) arg;
