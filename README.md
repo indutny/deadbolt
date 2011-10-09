@@ -41,7 +41,7 @@ function asyncAction(callback) {
 
 ## How does it work?
 
-It's using [v8](https://github.com/v8/v8) [MakeWeak](http://bespin.cz/~ondras/html/classv8_1_1Persistent.html#ab04609812113450bece2640ad0b27658)
+It's using [v8](https://github.com/v8/v8)'s [MakeWeak](http://bespin.cz/~ondras/html/classv8_1_1Persistent.html#ab04609812113450bece2640ad0b27658)
 black magic. When `lock` becomes weak (not referenced in your program) -
 `autorelease` callback will be called.
 
