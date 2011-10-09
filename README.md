@@ -39,6 +39,22 @@ function asyncAction(callback) {
 };
 ```
 
+## Installation
+
+If you're using npm:
+
+```bash
+npm install deadbolt
+```
+
+From source:
+
+```bash
+git clone git://github.com/indutny/deadbolt.git
+cd deadbolt
+./configure && make
+```
+
 ## How does it work?
 
 It's using [v8](https://github.com/v8/v8)'s [MakeWeak](http://bespin.cz/~ondras/html/classv8_1_1Persistent.html#ab04609812113450bece2640ad0b27658)

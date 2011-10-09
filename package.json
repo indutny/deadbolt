@@ -2,7 +2,7 @@
   "name": "deadbolt",
   "description": "Autoreleasing locks for node.js",
   "tags": ["deadbolt", "locks", "weak"],
-  "version": "0.3.5",
+  "version": "0.3.6",
 
   "homepage": "https://github.com/indutny/deadbolt",
 
@@ -16,11 +16,11 @@
   "dependencies": {
   },
   "devDependencies": {
-    "vows": "0.5.x"
+    "vows": "0.5.x",
+    "docco": "0.3.x"
   },
 
   "scripts": {
-    "install": "./configure && make",
     "test": "node --expose-gc `which vows` --spec test/*-test.js"
   }
 }
