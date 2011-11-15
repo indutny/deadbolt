@@ -7,7 +7,7 @@ function doGc() {
   return setInterval(function () { gc(); }, 200);
 };
 
-vows.describe('deadbolt/api').addBatch({
+vows.describe('deadbolt/wrap').addBatch({
   'Calling deadbolt.wrap for callback': {
     'that fires': {
       topic: function () {
