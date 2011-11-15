@@ -39,6 +39,14 @@ function asyncAction(callback) {
 };
 ```
 
+## How does it work?
+
+It's using [v8](https://github.com/v8/v8)'s [MakeWeak](http://bespin.cz/~ondras/html/classv8_1_1Persistent.html#ab04609812113450bece2640ad0b27658)
+black magic. When `lock` becomes weak (not referenced in your program) -
+`autorelease` callback will be called.
+
+Basically, if you forgot to call your `callback` - deadbolt will do it for you.
+
 ## Installation
 
 If you're using npm:
@@ -54,13 +62,6 @@ git clone git://github.com/indutny/deadbolt.git
 cd deadbolt
 ./configure && make
 ```
-
-## How does it work?
-
-It's using [v8](https://github.com/v8/v8)'s [MakeWeak](http://bespin.cz/~ondras/html/classv8_1_1Persistent.html#ab04609812113450bece2640ad0b27658)
-black magic. When `lock` becomes weak (not referenced in your program) -
-`autorelease` callback will be called.
-
 
 
 #### LICENSE
