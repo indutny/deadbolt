@@ -1,5 +1,13 @@
 # deadbolt
 
+```
+           __               ____          ____
+      ____/ /__  ____ _____/ / /_  ____  / / /_
+     / __  / _ \/ __ `/ __  / __ \/ __ \/ / __/
+    / /_/ /  __/ /_/ / /_/ / /_/ / /_/ / / /_
+    \__,_/\___/\__,_/\__,_/_.___/\____/_/\__/
+```
+
 ## Description
 
 Having locks in async world is not so straight-forward as it may look like.
