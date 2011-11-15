@@ -51,6 +51,9 @@ Basically, if you forgot to call your `callback` - deadbolt will do it for you.
 
 Full documentation is available [here](http://indutny.github.com/deadbolt/).
 
+
+### deadbolt.create
+
 ```javascript
 deadbolt.create('storage-type', { /* storage options */ });
 ```
@@ -59,6 +62,7 @@ Creates `Deadbolt`'s instance, default storage type is `memory` (`redis` is
 available for multi-process locks).
 
 Possible options for redis storage are:
+
 ```javascript
 {
   "host": "localhost",
@@ -70,6 +74,8 @@ Possible options for redis storage are:
 }
 ```
 
+### deadbolt.lock
+
 ```javascript
 // for global instance with memory storage
 deadbolt.lock('lock-id', /* optional */ 'info', callback);
@@ -79,6 +85,9 @@ Deadbolt#lock(...);
 ```
 
 Creates lock, `info` will be shown in error passed to `autorelease` callback.
+
+
+### lock.release, lock.autorelease
 
 ```javascript
 deadbolt.lock(..., function(err, lock) {
