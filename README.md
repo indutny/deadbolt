@@ -47,6 +47,49 @@ black magic. When `lock` becomes weak (not referenced in your program) -
 
 Basically, if you forgot to call your `callback` - deadbolt will do it for you.
 
+## API
+
+Full documentation is available [here](http://indutny.github.com/deadbolt/).
+
+```javascript
+deadbolt.create('storage-type', { /* storage options */ });
+```
+
+Creates `Deadbolt`'s instance, default storage type is `memory` (`redis` is 
+available for multi-process locks).
+
+Possible options for redis storage are:
+```javascript
+{
+  "host": "localhost",
+  "port": 6379,
+  "password": "redis password, if you have any",
+
+  "ttl": 300, // time-to-live for locks (see EXPIRE command for redis)
+  "prefix": "deadbolt" // all used keys will be prefixed
+}
+```
+
+```javascript
+// for global instance with memory storage
+deadbolt.lock('lock-id', /* optional */ 'info', callback);
+
+// For some manually created instance
+Deadbolt#lock(...);
+```
+
+Creates lock, `info` will be shown in error passed to `autorelease` callback.
+
+```javascript
+deadbolt.lock(..., function(err, lock) {
+  // Release lock manually
+  lock.release(function(err) {
+  });
+}).autorelease(function(err) {
+  // Lock was released automatically
+});
+```
+
 ## Installation
 
 If you're using npm:
