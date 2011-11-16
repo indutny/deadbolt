@@ -4,7 +4,7 @@ from shutil import copy2 as copy
 
 TARGET = 'weak'
 TARGET_FILE = '%s.node' % TARGET
-built = 'build/default/%s' % TARGET_FILE
+built = 'build/Release/%s' % TARGET_FILE
 dest = 'lib/deadbolt/%s' % TARGET_FILE
 
 def set_options(opt):
