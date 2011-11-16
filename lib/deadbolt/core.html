@@ -1,0 +1,101 @@
+<!DOCTYPE html><html><head><title>core.js</title><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><link rel="stylesheet" media="all" href="../../docco.css"></head><body><div id="container"><div id="background"></div><div id="jump_to">Jump To &hellip;<div id="jump_wrapper"><div id="jump_page"><a href="../../readme.html" class="source"><span class="file_name">README</span></a><a href="../../lib/deadbolt/core.html" class="source selected"><span class="base_path">lib / deadbolt / </span><span class="file_name">core.js</span></a><a href="../../lib/deadbolt/storage/memory.html" class="source "><span class="base_path">lib / deadbolt / storage / </span><span class="file_name">memory.js</span></a><a href="../../lib/deadbolt/storage/redis.html" class="source "><span class="base_path">lib / deadbolt / storage / </span><span class="file_name">redis.js</span></a><a href="../../lib/deadbolt/wrap.html" class="source "><span class="base_path">lib / deadbolt / </span><span class="file_name">wrap.js</span></a></div></div></div><table cellpadding="0" cellspacing="0"><thead><tr><th class="docs"><h1>core.js</h1><div class="filepath">lib/deadbolt/</div></th><th class="code"></th></tr></thead><tbody><tr id="section-1"><td class="docs"><div class="pilwrap"><a href="#section-1" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Deadbolt<br />Copyright(c) 2011 Fedor Indutny <a href="&#x6D;&#97;&#105;&#108;&#116;&#x6F;:&#102;&#101;&#x64;&#111;&#x72;&#x40;i&#x6E;&#100;&#x75;&#116;&#110;&#x79;&#46;&#x63;&#x6F;&#x6D;">&#102;&#101;&#x64;&#111;&#x72;&#x40;i&#x6E;&#100;&#x75;&#116;&#110;&#x79;&#46;&#x63;&#x6F;&#x6D;</a><br />MIT Licensed</p></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">deadbolt</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;../deadbolt&#39;</span><span class="p">),</span>
+    <span class="nx">weak</span> <span class="o">=</span> <span class="nx">deadbolt</span><span class="p">.</span><span class="nx">weak</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">core</span> <span class="o">=</span> <span class="nx">exports</span><span class="p">;</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><h3>function Deadbolt (type, options)</h3>
+
+<h4>@type {string} Storage type</h4>
+
+<h4>@options {object} Storage options.</h4>
+
+<p>Deadbolt's constructor</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">Deadbolt</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">type</span> <span class="o">||</span> <span class="p">(</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;memory&#39;</span><span class="p">);</span>
+  <span class="nx">options</span> <span class="o">||</span> <span class="p">(</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{});</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">deadbolt</span><span class="p">.</span><span class="nx">storages</span><span class="p">[</span><span class="nx">type</span><span class="p">])</span> <span class="k">throw</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Unknown storage type: &#39;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">);</span></pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><p>Initiate storage</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="k">this</span><span class="p">.</span><span class="nx">storage</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">deadbolt</span><span class="p">.</span><span class="nx">storages</span><span class="p">[</span><span class="nx">type</span><span class="p">](</span><span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">core</span><span class="p">.</span><span class="nx">Deadbolt</span> <span class="o">=</span> <span class="nx">Deadbolt</span><span class="p">;</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><h3>function create (type, options)</h3>
+
+<h4>@type {string} Storage type (only memory is available for now).</h4>
+
+<h4>@options {object} Storage options.</h4>
+
+<p>Creates new instance of Deadbolt</p>
+</td><td class="code"><div class="highlight"><pre><span class="nx">core</span><span class="p">.</span><span class="nx">create</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">create</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">Deadbolt</span><span class="p">(</span><span class="nx">type</span><span class="p">,</span> <span class="nx">options</span><span class="p">);</span>
+<span class="p">};</span></pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><h3>function onWeak ()</h3>
+
+<p><code>MakeWeak</code> callback</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">onWeak</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">locked</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span></pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><p>Remove lock from storage</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="k">this</span><span class="p">.</span><span class="nx">release</span><span class="p">();</span></pre></div></td></tr><tr id="section-7"><td class="docs"><div class="pilwrap"><a href="#section-7" class="pilcrow">&#182;</a></div><p>Invoke .autorelease() callback</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">err</span> <span class="o">=</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Lock became weak: &#39;</span> <span class="o">+</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">info</span> <span class="o">||</span> <span class="s1">&#39;without info&#39;</span><span class="p">));</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">weakCallback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+<span class="p">};</span></pre></div></td></tr><tr id="section-8"><td class="docs"><div class="pilwrap"><a href="#section-8" class="pilcrow">&#182;</a></div><h3>function lock (id, info, callback)</h3>
+
+<h4>@id {string} [optional] Lock identificator</h4>
+
+<h4>@info {string} [optional] Optional info, that'll be shown on autorelease</h4>
+
+<h4>@callback {function} Continuation to respond to</h4>
+
+<p>Initiate lock</p>
+</td><td class="code"><div class="highlight"><pre><span class="nx">Deadbolt</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">lock</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">lock</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">info</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span></pre></div></td></tr><tr id="section-9"><td class="docs"><div class="pilwrap"><a href="#section-9" class="pilcrow">&#182;</a></div><p>.lock(function () {})</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">id</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">callback</span> <span class="o">=</span> <span class="nx">id</span><span class="p">;</span>
+    <span class="nx">id</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="nx">info</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span></pre></div></td></tr><tr id="section-10"><td class="docs"><div class="pilwrap"><a href="#section-10" class="pilcrow">&#182;</a></div><p>.lock('id', function () {})</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">info</span> <span class="o">===</span> <span class="s1">&#39;function&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">callback</span> <span class="o">=</span> <span class="nx">info</span><span class="p">;</span>
+    <span class="nx">info</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">storage</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">storage</span><span class="p">,</span></pre></div></td></tr><tr id="section-11"><td class="docs"><div class="pilwrap"><a href="#section-11" class="pilcrow">&#182;</a></div><p>Create reference for which .MakeWeak will be called</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="nx">ref</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="nx">id</span><span class="p">,</span>
+        <span class="nx">locked</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">info</span><span class="o">:</span> <span class="nx">info</span><span class="p">,</span>
+        <span class="nx">weakCallback</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span></pre></div></td></tr><tr id="section-12"><td class="docs"><div class="pilwrap"><a href="#section-12" class="pilcrow">&#182;</a></div><p>Allow external script to release lock manually</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="nx">release</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">locked</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+          <span class="nx">unlock</span><span class="p">(</span><span class="nx">callback</span> <span class="o">||</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{});</span>
+        <span class="p">},</span>
+        <span class="nx">autorelease</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">fn</span><span class="p">)</span> <span class="p">{</span>
+          <span class="nx">weak</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">onWeak</span><span class="p">);</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">weakCallback</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">};</span></pre></div></td></tr><tr id="section-13"><td class="docs"><div class="pilwrap"><a href="#section-13" class="pilcrow">&#182;</a></div><p>Callback could be optional too</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="nx">callback</span> <span class="o">||</span> <span class="p">(</span><span class="nx">callback</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{});</span></pre></div></td></tr><tr id="section-14"><td class="docs"><div class="pilwrap"><a href="#section-14" class="pilcrow">&#182;</a></div><p>Store lock in storage and then lock</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">storage</span><span class="p">.</span><span class="nx">lock</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">ref</span> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="k">return</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">ref</span><span class="p">);</span></pre></div></td></tr><tr id="section-15"><td class="docs"><div class="pilwrap"><a href="#section-15" class="pilcrow">&#182;</a></div><p>Remove reference to lock instance, because storage's callback
+may be stored somewhere inside (as in node_redis module)</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="nx">ref</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">}</span></pre></div></td></tr><tr id="section-16"><td class="docs"><div class="pilwrap"><a href="#section-16" class="pilcrow">&#182;</a></div><p>Do not store lock</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">ref</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">unlock</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">id</span> <span class="o">!==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">storage</span><span class="p">.</span><span class="nx">unlock</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-17"><td class="docs"><div class="pilwrap"><a href="#section-17" class="pilcrow">&#182;</a></div><p>Allow external script to set autorelease callback</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="k">return</span> <span class="nx">ref</span><span class="p">;</span>
+<span class="p">};</span></pre></div></td></tr><tr id="section-18"><td class="docs"><div class="pilwrap"><a href="#section-18" class="pilcrow">&#182;</a></div><p>Export bounded instance method</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Deadbolt</span><span class="p">();</span>
+<span class="nx">core</span><span class="p">.</span><span class="nx">lock</span> <span class="o">=</span> <span class="nx">instance</span><span class="p">.</span><span class="nx">lock</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">instance</span><span class="p">);</span>
+
+</pre></div></td></tr></tbody></table><div id="generated">generated Wed Nov 16 2011 14:16:50 GMT+0600 (OMST)  </div></div></body></html>

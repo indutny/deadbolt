@@ -1,24 +1,153 @@
-<!DOCTYPE html>  <html> <head>   <title>core.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="core.html">                 core.js               </a>                                           <a class="source" href="wrap.html">                 wrap.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               core.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>function Deadbolt (type, options)</h3>
+<!DOCTYPE html><html><head><title>README</title><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><link rel="stylesheet" media="all" href="./docco.css"></head><body><div id="container"><div id="background"></div><div id="jump_to">Jump To &hellip;<div id="jump_wrapper"><div id="jump_page"><a href="./readme.html" class="source"><span class="file_name">README</span></a><a href="./lib/deadbolt/core.html" class="source "><span class="base_path">lib / deadbolt / </span><span class="file_name">core.js</span></a><a href="./lib/deadbolt/storage/memory.html" class="source "><span class="base_path">lib / deadbolt / storage / </span><span class="file_name">memory.js</span></a><a href="./lib/deadbolt/storage/redis.html" class="source "><span class="base_path">lib / deadbolt / storage / </span><span class="file_name">redis.js</span></a><a href="./lib/deadbolt/wrap.html" class="source "><span class="base_path">lib / deadbolt / </span><span class="file_name">wrap.js</span></a></div></div></div><table cellpadding="0" cellspacing="0"><thead><tr><th class="docs"></th><th class="code"></th></tr></thead><tbody><tr id="section"><td class="docs"><h3>Name</h3><p>deadbolt</p><h3>Description</h3><p>Autoreleasing locks for node.js</p><h3>Author</h3><p>Fedor Indutny &lt;fedor@indutny.com&gt;</p><h3>Version</h3><p>0.3.8</p><h3>Dependencies </h3><ul><li><b>redis </b><span>0.7.x</span></li></ul><p><h3>Stats</h3><pre class="code_stats">
+http://cloc.sourceforge.net v 1.55  T=0.5 s (8.0 files/s, 540.0 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Javascript                       4             36            102            132
+-------------------------------------------------------------------------------
+SUM:                             4             36            102            132
+-------------------------------------------------------------------------------
+</pre></p></td><td id="content" class="code"><p><code>
+           __               ____          ____
+      ____/ /__  ____ _____/ / /_  ____  / / /_
+     / __  / _ \/ __ `/ __  / __ \/ __ \/ / __/
+    / /_/ /  __/ /_/ / /_/ / /_/ / /_/ / / /_
+    \__,_/\___/\__,_/\__,_/_.___/\____/_/\__/
+</code></p>
 
-<h4>@type {string} Storage type</h4>
+<h2>Description</h2>
 
-<h4>@options {object} Storage options.</h4>
+<p>Having locks in async world is not so straight-forward as it may look like.
+Everything can work fine, but when exception will be thrown in your app - locks
+may stay active until script's termination.</p>
 
-<p>Deadbolt's constructor</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <p>Initiate storage</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h3>function create (type, options)</h3>
+<p>Here comes <em>deadbolt</em> to save all us:</p>
 
-<h4>@type {string} Storage type (only memory is available for now).</h4>
+<p>```javascript
+var deadbolt = require('deadbolt');</p>
 
-<h4>@options {object} Storage options.</h4>
+<p>deadbolt.lock('some-action-id', function (err, lock) {</p>
 
-<p>Creates new instance of Deadbolt</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h3>function onWeak ()</h3>
+<p>if (err) console.error(err); // 'some-action-id' is already running somewhere</p>
 
-<p><code>MakeWeak</code> callback</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <p>Remove lock from storage</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <p>Invoke .autorelease() callback</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <h3>function lock (id, info, callback)</h3>
+<p>doAsyncActionThatProbablyThrows(function () {
+    lock.release(function (err) {
+      // Released lock if err === null
+    });
+  });</p>
 
-<h4>@id {string} [optional] Lock identificator</h4>
+<p>}).autorelease(function (err) {</p>
 
-<h4>@info {string} [optional] Optional info, that'll be shown on autorelease</h4>
+<p>console.error('Execution stopped somewhere inside lock');
+  console.error('Released lock automatically');
+  console.error('Reason: ' + err);</p>
 
-<h4>@callback {function} Continuation to respond to</h4>
+<p>});
+```</p>
 
-<p>Initiate lock</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <p>.lock(function () {})</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <p>.lock('id', function () {})</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <p>Create reference for which .MakeWeak will be called</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Allow external script to release lock manually</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <p>Callback could be optional too</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-14">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-14">&#182;</a>               </div>               <p>Store lock in storage and then lock</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-15">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-15">&#182;</a>               </div>               <p>Remove reference to lock instance, because storage's callback
-may be stored somewhere inside (as in node_redis module)</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-16">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-16">&#182;</a>               </div>               <p>Do not store lock</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-17">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-17">&#182;</a>               </div>               <p>Allow external script to set autorelease callback</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                               <tr id="section-18">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-18">&#182;</a>               </div>               <p>Export bounded instance method</p>             </td>             <td class="code">               <div class="highlight"><pre>undefined</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
+<p>Or just wrap callbacks without setting lock:</p>
+
+<p><code>javascript
+function asyncAction(callback) {
+  callback = deadbolt.wrap(callback);
+  doOtherAsyncActionThatMayForgotToCall(callback);
+};
+</code></p>
+
+<h2>How does it work?</h2>
+
+<p>It's using <a href="https://github.com/v8/v8">v8</a>'s <a href="http://bespin.cz/~ondras/html/classv8_1_1Persistent.html#ab04609812113450bece2640ad0b27658">MakeWeak</a>
+black magic. When <code>lock</code> becomes weak (not referenced in your program) -
+<code>autorelease</code> callback will be called.</p>
+
+<p>Basically, if you forgot to call your <code>callback</code> - deadbolt will do it for you.</p>
+
+<h2>API</h2>
+
+<p>Full documentation is available <a href="http://indutny.github.com/deadbolt/">here</a>.</p>
+
+<h3>deadbolt.create</h3>
+
+<p><code>javascript
+deadbolt.create('storage-type', { /* storage options */ });
+</code></p>
+
+<p>Creates <code>Deadbolt</code>'s instance, default storage type is <code>memory</code> (<code>redis</code> is 
+available for multi-process locks).</p>
+
+<p>Possible options for redis storage are:</p>
+
+<p>```javascript
+{
+  "host": "localhost",
+  "port": 6379,
+  "password": "redis password, if you have any",</p>
+
+<p>"ttl": 300, // time-to-live for locks (see EXPIRE command for redis)
+  "prefix": "deadbolt" // all used keys will be prefixed
+}
+```</p>
+
+<h3>deadbolt.lock</h3>
+
+<p>```javascript
+// for global instance with memory storage
+deadbolt.lock('lock-id', /* optional */ 'info', callback);</p>
+
+<p>// For some manually created instance
+Deadbolt#lock(...);
+```</p>
+
+<p>Creates lock, <code>info</code> will be shown in error passed to <code>autorelease</code> callback.</p>
+
+<h3>lock.release, lock.autorelease</h3>
+
+<p><code>javascript
+deadbolt.lock(..., function(err, lock) {
+  // Release lock manually
+  lock.release(function(err) {
+  });
+}).autorelease(function(err) {
+  // Lock was released automatically
+});
+</code></p>
+
+<h2>Installation</h2>
+
+<p>If you're using npm:</p>
+
+<p><code>bash
+npm install deadbolt
+</code></p>
+
+<p>From source:</p>
+
+<p><code>bash
+git clone git://github.com/indutny/deadbolt.git
+cd deadbolt
+./configure &amp;&amp; make
+</code></p>
+
+<h4>LICENSE</h4>
+
+<p>(The MIT License)</p>
+
+<p>Copyright (c) 2011 Fedor Indutny <a href="&#x6D;&#x61;&#x69;&#x6C;t&#x6F;:&#102;&#x65;&#100;o&#x72;&#x40;&#x69;&#x6E;&#100;&#117;&#x74;&#110;&#x79;&#x2E;&#99;&#111;&#x6D;">&#102;&#x65;&#100;o&#x72;&#x40;&#x69;&#x6E;&#100;&#117;&#x74;&#110;&#x79;&#x2E;&#99;&#111;&#x6D;</a></p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the 'Software'), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>  </td></tr></tbody></table><div id="generated">generated Wed Nov 16 2011 14:16:50 GMT+0600 (OMST)  </div></div></body></html>
