@@ -1,0 +1,45 @@
+<!DOCTYPE html>  <html> <head>   <title>memory.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="core.html">                 core.js               </a>                                           <a class="source" href="memory.html">                 memory.js               </a>                                           <a class="source" href="redis.html">                 redis.js               </a>                                           <a class="source" href="wrap.html">                 wrap.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               memory.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>                            </td>             <td class="code">               <div class="highlight"><pre><span class="cm">/*!</span>
+<span class="cm"> * Deadbolt</span>
+<span class="cm"> * Copyright(c) 2011 Fedor Indutny &lt;fedor@indutny.com&gt;</span>
+<span class="cm"> * MIT Licensed</span>
+<span class="cm"> */</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>function Memory (options)</h3>
+
+<h4>@options {object} Storage options</h4>
+
+<p>Memory storage constructor.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">Memory</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="nx">options</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">locks</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="p">};</span>
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="nx">Memory</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h3>function lock (id, callback)</h3>
+
+<h4>@id {string} Lock id.</h4>
+
+<h4>@callback {function} Continuation to respond to.</h4>
+
+<p>Stores lock in storage.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Memory</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">lock</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">locks</span><span class="p">[</span><span class="nx">id</span><span class="p">])</span> <span class="p">{</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Lock for: &#39;</span> <span class="o">+</span> <span class="nx">id</span> <span class="o">+</span> <span class="s1">&#39; is already set&#39;</span><span class="p">));</span>
+    <span class="p">});</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">locks</span><span class="p">[</span><span class="nx">id</span><span class="p">]</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h3>function unlock (id, callback)</h3>
+
+<h4>@id {string} Lock id.</h4>
+
+<h4>@callback {function} Continuation to respond to.</h4>
+
+<p>Removes lock from storage.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">Memory</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unlock</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">locks</span><span class="p">[</span><span class="nx">id</span><span class="p">])</span> <span class="p">{</span>
+    <span class="k">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">locks</span><span class="p">[</span><span class="nx">id</span><span class="p">];</span>
+  <span class="p">}</span>
+  <span class="nx">process</span><span class="p">.</span><span class="nx">nextTick</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
