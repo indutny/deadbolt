@@ -1,10 +1,10 @@
 build:
 	node-waf build
 
-docs: lib/deadbolt/core.js lib/deadbolt/wrap.js
-	docco lib/deadbolt/core.js lib/deadbolt/wrap.js
+docs:
+	docco-husky lib/deadbolt/*.js lib/deadbolt/storage/*.js
 
 clean:
 	node-waf clean
 
-.PHONY: build clean test
+.PHONY: build docs clean test
