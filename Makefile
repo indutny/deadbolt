@@ -2,7 +2,7 @@ build:
 	node-waf build
 
 docs:
-	docco-husky lib/deadbolt/*.js lib/deadbolt/storage/*.js
+	docco lib/deadbolt/*.js lib/deadbolt/storage/*.js
 
 clean:
 	node-waf clean
