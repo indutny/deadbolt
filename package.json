@@ -1,18 +1,18 @@
 {
   "name": "deadbolt",
   "description": "Autoreleasing locks for node.js",
-  "tags": ["deadbolt", "locks", "weak"],
-  "version": "0.3.7",
-
+  "tags": [
+    "deadbolt",
+    "locks",
+    "weak"
+  ],
+  "version": "0.3.8",
   "homepage": "https://github.com/indutny/deadbolt",
-
   "author": "Fedor Indutny <fedor@indutny.com>",
   "contributors": [
-    { "name": "Fedor Indutny", "email": "fedor@indutny.com" }
+    "Fedor Indutny <fedor@indutny.com>"
   ],
-
   "main": "./lib/deadbolt",
-
   "dependencies": {
     "redis": "0.7.x"
   },
@@ -20,10 +20,14 @@
     "vows": "0.5.x",
     "docco": "0.3.x"
   },
-
-  "engine": { "node": ">= 0.6.0" },
-
+  "engine": {
+    "node": ">= 0.6.0"
+  },
   "scripts": {
-    "test": "node --expose-gc `which vows` --spec test/*-test.js"
+    "test": "node --expose-gc `which vows` --spec test/*-test.js",
+    "preinstall": "node-waf clean || true; node-waf configure build"
+  },
+  "engines": {
+    "node": "*"
   }
 }
