@@ -6,6 +6,8 @@
     \__,_/\___/\__,_/\__,_/_.___/\____/_/\__/
 ```
 
+[![Build Status](https://secure.travis-ci.org/indutny/deadbolt.png)](http://travis-ci.org/indutny/deadbolt>)
+
 ## Description
 
 Having locks in async world is not so straight-forward as it may look like.
