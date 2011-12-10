@@ -6,9 +6,7 @@
     \__,_/\___/\__,_/\__,_/_.___/\____/_/\__/
 ```
 
-[![Build Status](https://secure.travis-ci.org/indutny/deadbolt.png)](http://travis-ci.org/indutny/deadbolt>)
-
-## Description
+## Description [![Build Status](https://secure.travis-ci.org/indutny/deadbolt.png)](http://travis-ci.org/indutny/deadbolt>)
 
 Having locks in async world is not so straight-forward as it may look like.
 Everything can work fine, but when exception will be thrown in your app - locks
